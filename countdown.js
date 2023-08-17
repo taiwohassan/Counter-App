@@ -1,82 +1,22 @@
-const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const giveaway=document.querySelector('.giveaway');
-  const deadline=document.querySelector('.deadline');
-  const items=document.querySelectorAll('.deadline-format h4');
-// console.log(items); 
-let futureDate=new Date(2020, 3, 26, 1, 30, 0);
-// console.log(futureDate);
-const year=futureDate.getFullYear();
-const hours=futureDate.getHours();
-const minutes=futureDate.getMinutes();
-
-
-let month=futureDate.getMonth();
-month=months[month];
-const date=futureDate.getDate();
-
-const weekday=weekdays[futureDate.getDay()];
-
-
-giveaway.textContent=`giveaway ends on ${weekday}, ${month} ${year} ${hours}: ${minutes}`;
-// console.log(weekday);
-//future time in ms
-const futureTime=futureDate.getTime();
-console.log(futureTime);
-
-
-function getRemainingTime(){
-  const today=new Date().getTime();
-  const t=futureTime-today;
-  console.log(t);
-  //1s=1000ms
-  //1m=60s
-  //1hr=60min
-  //1day=24hrs
-  //values in ms
-  const OneDay=24*60*60*1000;
-  const oneHour=60*60*1000;
-  const oneMinute=60*1000;
-  //calculate all values
-  let days=t/OneDay
-  // console.log(OneDay);
-  // console.log(days);
-  days=Math.floor(days);
-  let hours=Math.floor((t % OneDay)/oneHour);
-  let minutes=Math.floor((t % oneHour)/oneMinute);
-  let seconds=Math.floor((t % oneMinute)/1000);
-  //set values  array:
-  const values=[days,hours,minutes,seconds];
-
-  items.forEach(function(item,index){
-    item.innerHTML=values[index];
-
-  });
-
-  // console.log(hours);
-}
-getRemainingTime();
-
-
-  q
+let count=0;
+const btns=document.querySelectorAll(".btn")
+const value=document.querySelector("#value")
+btns.forEach(function(btn){
+    btn.addEventListener("click",function(e){
+        const styles=e.currentTarget.classList;
+        if(styles.contains("decrease")){
+            count--;
+        }else if(styles.contains("increase")){
+            count++;
+        }else{
+            count=0;
+        };
+        if(count>0){
+            value.style.color="green";
+        }
+        else if(count<0){
+            value.style.color="blue";
+        }else{value.style.color="yellow"}
+        value.textContent=count;
+    })
+});
